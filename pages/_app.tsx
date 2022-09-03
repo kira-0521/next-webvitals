@@ -1,3 +1,4 @@
+import '../styles/globals.css'
 import { useEffect } from 'react'
 import type { AppProps, NextWebVitalsMetric } from 'next/app'
 import { QueryClient, QueryClientProvider } from 'react-query'
