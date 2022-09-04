@@ -1,14 +1,24 @@
-import { DocumentTextIcon, LogoutIcon } from '@heroicons/react/solid'
+import {
+  DocumentTextIcon,
+  LogoutIcon,
+  StatusOnlineIcon,
+} from '@heroicons/react/solid'
 import { NextPage } from 'next'
 import React from 'react'
 import { Layout } from '../components/Layout'
 import { TaskForm } from '../components/TaskForm'
 import { TaskList } from '../components/TaskList'
 import { supabase } from '../utils/supabase'
+import { NoticeForm } from '../components/NoticeForm'
+import { NoticeList } from '../components/NoticeList'
+import { useQueryClient } from 'react-query'
 
 const Dashboard: NextPage = () => {
+  const queryClient = useQueryClient()
   const signOut = () => {
     supabase.auth.signOut()
+    queryClient.removeQueries('todos')
+    queryClient.removeQueries('notices')
   }
   return (
     <Layout title="Dashboard">
@@ -23,6 +33,13 @@ const Dashboard: NextPage = () => {
           </div>
           <TaskForm />
           <TaskList />
+        </div>
+        <div>
+          <div className="my-3 flex justify-center ">
+            <StatusOnlineIcon className=" h-8 w-8 text-blue-500" />
+          </div>
+          <NoticeForm />
+          <NoticeList />
         </div>
       </div>
     </Layout>
